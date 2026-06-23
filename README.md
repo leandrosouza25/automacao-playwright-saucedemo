@@ -1,5 +1,10 @@
 # 🎭 Automação de Checkout Cross-Browser com Playwright
 
+![Playwright](https://shields.io)
+![TypeScript](https://shields.io)
+![Node.js](https://shields.io)
+![NPM](https://shields.io)
+
 Este repositório contém a automação de testes ponta a ponta (E2E) para o fluxo crítico de checkout do e-commerce **SauceDemo**, utilizando práticas modernas de engenharia de QA.
 
 ---
