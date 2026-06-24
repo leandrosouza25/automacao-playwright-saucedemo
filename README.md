@@ -27,8 +27,44 @@ O projeto está configurado para executar o mesmo cenário de forma simultânea 
 
 ---
 
+## 🔌 Testes de API
+Além dos testes E2E de UI, o projeto também inclui automação de testes de API utilizando **JSONPlaceholder** como serviço mock.
+
+* Implementação de **Service Layer (PostsService)** para abstração das requisições
+* Validação de status HTTP e contrato de resposta
+* Estrutura preparada para evolução para testes de integração reais
+
+
+---
+
+
 ## 📊 Execução e Relatórios Visuais
 O framework está configurado para capturar **Screenshots** e **Traces** automáticos de cada etapa do teste.
+
+---
+
+### 📈 Playwright HTML Report
+Geração automática de relatório detalhado com evidências de execução:
+```bash
+npx playwright test
+npx playwright show-report
+```
+
+---
+
+## 📊 Allure Report (avançado)
+
+O projeto também integra o **Allure Report**, permitindo visualização profissional dos testes com:
+
+- Steps detalhados de execução  
+- Attachments de request/response  
+- Status de execução por cenário  
+- Dashboard interativo de resultados  
+
+
+
+---
+
 
 ### Pré-requisitos
 * Node.js instalado (v18+)
