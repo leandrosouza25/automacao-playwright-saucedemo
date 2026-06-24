@@ -3,3 +3,5 @@ test-results/
 playwright-report/
 blob-report/
 playwright/.local-browsers/
+allure-results/
+allure-report/
