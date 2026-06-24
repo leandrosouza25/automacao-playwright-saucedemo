@@ -1,4 +1,4 @@
-# 🎭 Automação de Checkout Cross-Browser com Playwright
+# 🎭 Automação Cross-Browser com Playwright 
 
 ![Playwright](https://img.shields.io/badge/Playwright-2EAD33?style=for-the-badge&logo=playwright&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
