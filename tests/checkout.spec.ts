@@ -1,33 +1,25 @@
 import { test, expect } from '@playwright/test';
+import { LoginPage } from '../pages/login.page';
+import { CheckoutPage } from '../pages/checkout.page';
 
-test.describe('Fluxo Completo de Checkout - SauceDemo', () => {
+test.describe('Fluxo Completo de Checkout - SauceDemo (Padrão POM)', () => {
 
   test('Deve realizar uma compra com sucesso do início ao fim', async ({ page }) => {
-    await page.goto('https://saucedemo.com');
+    const loginPage = new LoginPage(page);
+    const checkoutPage = new CheckoutPage(page);
 
-    await page.locator('#user-name').fill('standard_user');
-    await page.locator('#password').fill('secret_sauce');
-    await page.locator('#login-button').click();
+    await loginPage.acessar();
+    await loginPage.realizarLogin('standard_user', 'secret_sauce');
 
-    await expect(page.locator('.title')).toHaveText('Products');
+    await expect(checkoutPage.tituloProdutos).toHaveText('Products');
 
-    await page.locator('#add-to-cart-sauce-labs-backpack').click();
+    await checkoutPage.adicionarProdutoAoCarrinho();
+    await expect(checkoutPage.nomeProdutoCarrinho).toHaveText('Sauce Labs Backpack');
 
-    await page.locator('.shopping_cart_link').click();
-    await expect(page.locator('.inventory_item_name')).toHaveText('Sauce Labs Backpack');
+    await checkoutPage.preencherDadosEntrega('Leandro', 'Souza', '12345-678');
+    await checkoutPage.finalizarCompra();
 
-    await page.locator('#checkout').click();
-
-    await page.locator('#first-name').fill('Leandro');
-    await page.locator('#last-name').fill('Souza');
-    await page.locator('#postal-code').fill('12345-678');
-    await page.locator('#continue').click();
-
-    await page.locator('#finish').click();
-
-    const mensagemSucesso = page.locator('.complete-header');
-    await expect(mensagemSucesso).toHaveText('Thank you for your order!');
+    await expect(checkoutPage.mensagemSucesso).toHaveText('Thank you for your order!');
   });
 
 });
-
