@@ -34,6 +34,12 @@ Além dos testes E2E de UI, o projeto também inclui automação de testes de AP
 * Validação de status HTTP e contrato de resposta
 * Estrutura preparada para evolução para testes de integração reais
 
+---
+
+## ☁️ CI/CD 
+O projeto também conta com integração de CI/CD através do GitHub Actions, permitindo a execução automática dos testes a cada push ou pull request na branch principal. Dessa forma, toda a suíte de testes (E2E e API) é validada em um ambiente contínuo, garantindo maior confiabilidade, rastreabilidade e padronização do processo de qualidade.
+
+
 
 ---
 
