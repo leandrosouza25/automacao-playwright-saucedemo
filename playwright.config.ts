@@ -12,7 +12,10 @@ export default defineConfig({
 
   workers: (process && process.env && process.env.CI) ? 1 : undefined,
 
-  reporter: 'html',
+   reporter: [
+    ['html'],
+    ['allure-playwright']
+  ],
 
   use: {
     baseURL: 'https://jsonplaceholder.typicode.com',

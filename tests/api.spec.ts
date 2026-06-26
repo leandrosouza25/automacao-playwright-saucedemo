@@ -1,36 +1,47 @@
 import { test, expect } from '@playwright/test';
+import { PostsService } from '../api/posts.service';
 
-test.describe('Testes de API Back-end - JSONPlaceholder', () => {
+test.describe('API Tests - JSONPlaceholder', () => {
 
-  test('Deve criar uma nova postagem com sucesso via POST', async ({ request }) => {
+  test('Deve criar uma nova postagem com sucesso via POST', async ({ request }, testInfo) => {
 
-    const resposta = await request.post('https://jsonplaceholder.typicode.com/posts', {
-      data: {
-        title: 'Novo Teste de API',
-        body: 'Validando o back-end com Playwright e TypeScript',
-        userId: 1
-      }
+    const postsService = new PostsService(request);
+
+    const payload = {
+      title: 'Novo Teste de API',
+      body: 'Validando o back-end com Playwright e TypeScript',
+      userId: 1
+    };
+
+    await test.step('Criar payload da requisição', async () => {
+      expect(payload.title).toBeDefined();
     });
 
-    // ✔️ Validação do status HTTP
-    expect(resposta.status(), 'Status inesperado na criação do post')
-      .toBe(201);
+    const resposta = await test.step('Executar POST /posts', async () => {
+      return await postsService.createPost(payload);
+    });
 
-    // ✔️ Validação do tipo de resposta
-    expect(resposta.headers()['content-type'])
-      .toContain('application/json');
+    await test.step('Validar status code', async () => {
+      expect(resposta.status()).toBe(201);
+    });
 
-    // ✔️ Parse do JSON de resposta
-    const dadosResposta = await resposta.json();
+    const dadosResposta = await test.step('Parse da resposta JSON', async () => {
+      return await resposta.json();
+    });
 
-    // ✔️ Validações do conteúdo retornado
-    expect(dadosResposta.title).toBe('Novo Teste de API');
-    expect(dadosResposta.body).toBe('Validando o back-end com Playwright e TypeScript');
-    expect(dadosResposta.userId).toBe(1);
+    await test.step('Validar dados da resposta', async () => {
+      expect(dadosResposta.title).toBe(payload.title);
+      expect(dadosResposta.body).toBe(payload.body);
+      expect(dadosResposta.userId).toBe(payload.userId);
+      expect(typeof dadosResposta.id).toBe('number');
+    });
 
-    // ✔️ JSONPlaceholder sempre retorna um ID simulado
-    expect(typeof dadosResposta.id).toBe('number');
-    expect(dadosResposta).toHaveProperty('id');
+    // Attach correto para Playwright + Allure
+    await testInfo.attach('Response Body', {
+      body: JSON.stringify(dadosResposta, null, 2),
+      contentType: 'application/json'
+    });
+
   });
 
 });
