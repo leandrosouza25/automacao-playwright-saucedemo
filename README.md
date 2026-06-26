@@ -15,6 +15,8 @@ Este repositório contém a automação de testes ponta a ponta (E2E) para o flu
 ## 🛠️ Tecnologias e Arquitetura
 * **Framework:** Playwright (Execução ultra-rápida fora do navegador)
 * **Linguagem:** TypeScript (Tipagem estática e segurança de código)
+* **Arquitetura:** Page Object Model (POM) e Service Layer para testes de API
+* **CI/CD:** GitHub Actions para execução automática dos testes em pipeline
 * **Estratégia de Seletores:** Localizadores baseados em atributos estáticos (`id`) para mitigar testes frágeis (*flaky*)
 
 ---
